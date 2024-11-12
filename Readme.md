@@ -415,3 +415,40 @@ public class ExceptionChainingExample {
 }
 ```
 
+# **FinallyExample**
+```java
+import java.io.*;
+
+public class FinallyExample {
+    public static void main(String[] args) {
+        BufferedReader reader = null;
+        
+        try {
+            reader = new BufferedReader(new FileReader("test.txt"));
+            System.out.println("File opened successfully.");
+            String line = reader.readLine(); // Reading the first line
+            System.out.println("Read line: " + line);
+            
+            // Simulating an exception
+            int result = 10 / 0;
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("IOException occurred: " + e.getMessage());
+        } catch (ArithmeticException e) {
+            System.out.println("Arithmetic exception: " + e.getMessage());
+        } finally {
+            // Closing the file in finally block
+            try {
+                if (reader != null) {
+                    reader.close();
+                    System.out.println("File closed.");
+                }
+            } catch (IOException e) {
+                System.out.println("Failed to close the file: " + e.getMessage());
+            }
+        }
+    }
+}
+
+```
