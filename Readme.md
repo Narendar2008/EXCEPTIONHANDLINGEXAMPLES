@@ -453,7 +453,7 @@ public class FinallyExample {
 
 ```
 
-# implementation of Runnable Interface
+# **implementation of Runnable Interface**
 ```java
 public class NumberPrinter implements Runnable {
    @Override
@@ -470,5 +470,74 @@ public class Main {
        Thread thread = new Thread(numberPrinter);
        thread.start(); // Start the thread to print numbers concurrently
    }
+}
+```
+
+# **implemetation of Thread**
+```java
+class NinjasThread extends Thread {
+   private String message;
+   public NinjasThread(String message) {
+       this.message = message;
+   }
+   public void run() {
+       for (int i = 0; i < 5; i++) {
+           System.out.println(message);
+           try {
+               Thread.sleep(1000);
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
+       }
+   }
+}
+public class Main {
+   public static void main(String[] args) {
+       NinjasThread thread1 = new NinjasThread("Hello Ninjas from thread 1");
+       NinjasThread thread2 = new NinjasThread("Hello Ninjas from thread 2");
+       thread1.start();
+       thread2.start();
+   }
+}
+```
+
+# **join,yeild,sleep**
+```java
+class SleepYieldJoinExample extends Thread {
+    private String name;
+
+    public SleepYieldJoinExample(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        try {
+            for (int i = 1; i <= 3; i++) {
+                System.out.println(name + " - Count: " + i);
+                if (i == 2) {
+                    Thread.sleep(5000);//sleep
+                    System.out.println(name + " resumed after sleep.");
+                }
+                Thread.yield(); // Yield
+            }
+        } catch (InterruptedException e) {
+            System.out.println(name + " interrupted.");
+        }
+    }
+}
+
+public class Exception {
+    public static void main(String[] args) throws InterruptedException {
+        Thread t1 = new SleepYieldJoinExample("Thread 1");
+        Thread t2 = new SleepYieldJoinExample("Thread 2");
+Thread t3= new SleepYieldJoinExample("Thread 3");
+        t1.start();
+        t1.join(); // Main thread waits for t1 to finish
+        t2.start();
+t2.join();
+t3.start();
+
+    }
 }
 ```
